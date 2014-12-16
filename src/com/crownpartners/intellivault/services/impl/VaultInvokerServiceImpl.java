@@ -20,7 +20,8 @@ import com.intellij.openapi.diagnostic.Logger;
  * change this template use File | Settings | File Templates.
  */
 public class VaultInvokerServiceImpl implements VaultInvokerService {
-    private static final String VAULT_CLASS = "com.day.jcr.vault.cli.VaultFsApp";
+    //private static final String VAULT_CLASS = "com.day.jcr.vault.cli.VaultFsApp";
+    private static final String VAULT_CLASS = "org.apache.jackrabbit.vault.cli.VaultFsApp";
     private static final String VAULT_METHOD = "main";
     public static final String LIB = "lib";
     public static final String BIN = "bin";
