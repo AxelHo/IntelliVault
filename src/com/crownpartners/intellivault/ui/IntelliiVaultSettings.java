@@ -60,50 +60,6 @@ public class IntelliiVaultSettings implements Configurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-        btnTempDirBrowse.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-                String currentDirectory = txtTempDir.getText()!=null && txtTempDir.getText().length()>0 ?
-                        txtTempDir.getText() : CURRENT_DIRECTORY_SYMBOL;
-                chooser.setCurrentDirectory(new java.io.File(currentDirectory));
-                chooser.setDialogTitle("Select Temp Directory");
-                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                chooser.setAcceptAllFileFilterUsed(false);
-
-                // Demonstrate "Open" dialog:
-                int rVal = chooser.showOpenDialog(jPanel);
-                if (rVal == JFileChooser.APPROVE_OPTION) {
-                    txtTempDir.setText(chooser.getSelectedFile().getAbsolutePath());
-                }
-            }
-        });
-
-        btnVaultDirBrowse.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-                String curDir=txtVaultDir.getText()!=null && txtVaultDir.getText().length()>0
-                        ? txtVaultDir.getText() : CURRENT_DIRECTORY_SYMBOL;
-                chooser.setCurrentDirectory(new java.io.File(curDir));
-                chooser.setDialogTitle("Select Vault Directory");
-                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                chooser.setAcceptAllFileFilterUsed(false);
-
-                // Demonstrate "Open" dialog:
-                int rVal = chooser.showOpenDialog(jPanel);
-                if (rVal == JFileChooser.APPROVE_OPTION) {
-                    txtVaultDir.setText(chooser.getSelectedFile().getAbsolutePath());
-                }
-            }
-        });
-
-        btnRestoreDefaults.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setDialogStateFromPreferences(new IntelliVaultPreferences());
-            }
-        });
 
 
         reset();
@@ -132,6 +88,7 @@ public class IntelliiVaultSettings implements Configurable {
         IntelliVaultPreferencesService preferencesService
                 = ServiceManager.getService(IntelliVaultPreferencesService.class);
         setDialogStateFromPreferences(preferencesService.getPreferences());
+      //  setDialogStatic();
     }
 
     /**
@@ -186,6 +143,20 @@ public class IntelliiVaultSettings implements Configurable {
             txtPassword.setText(intelliVaultCRXRepository.getPassword());
             txtUsername.setText(intelliVaultCRXRepository.getUsername());
         }
+    }
+    private void setDialogStatic() {
+        txtVaultDir.setText("C:\\Projekte\\aem\\vault-cli-3.1.6\\bin");
+        txtTempDir.setText("C:\\tmp\\");
+        txtJCRRootDirName.setText("jcr_root");
+        verboseOutputCheckBox.setSelected(true);
+        String ignorePatterns=".git,.vlt";
+        ignorePatterns = ignorePatterns.substring(0, ignorePatterns.length()-1);
+        txtIgnorePatterns.setText(ignorePatterns);
+
+            txtRepoUrl.setText("http://localhost:4502");
+            txtPassword.setText("admin");
+            txtUsername.setText("admin");
+
     }
 
     @Override

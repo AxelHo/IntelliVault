@@ -25,7 +25,7 @@ public class VaultInvokerServiceImpl implements VaultInvokerService {
     private static final String VAULT_METHOD = "main";
     public static final String LIB = "lib";
     public static final String BIN = "bin";
-
+    public static final String TEST = "bin";
     private ClassLoader vaultClassLoader;
     private boolean init = false;
 
