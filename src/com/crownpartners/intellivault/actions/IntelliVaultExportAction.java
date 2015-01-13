@@ -7,6 +7,7 @@ import com.crownpartners.intellivault.services.IntelliVaultService;
 import com.intellij.execution.filters.TextConsoleBuilderFactory;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
@@ -16,7 +17,9 @@ import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import com.intellij.openapi.diagnostic.Logger;
 import org.jetbrains.annotations.NotNull;
+
 
 /**
  * Created with IntelliJ IDEA. User: sean.steimer Date: 3/13/13 Time: 8:54 PM To
@@ -35,7 +38,7 @@ public class IntelliVaultExportAction extends IntelliVaultAbstractAction {
     }
 
     private class IntelliVaultExportTask extends Task.Backgroundable {
-
+        private final Logger log = Logger.getInstance(IntelliVaultExportAction.class);
         private VaultOperationDirectory vaultOpDir;
         private IntelliVaultOperationConfig conf;
         private IntelliVaultCRXRepository repository;
@@ -83,16 +86,18 @@ public class IntelliVaultExportAction extends IntelliVaultAbstractAction {
                 ApplicationManager.getApplication().invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        Messages.showInfoMessage(String.format("Successfully Exported from %s.",
+                      /*  Messages.showInfoMessage(String.format("Successfully Exported from %s.",
                                 new Object[]{repository.getRepoUrl() + vaultOpDir.getJcrPath()}),
-                                "IntelliVault Export Completed Successfully!");
+                                "IntelliVault Export Completed Successfully!");*/
+                        log.info("Successfully Exported" + String.format(repository.getRepoUrl() + vaultOpDir.getJcrPath()));
                     }
                 });
             } catch (final IntelliVaultException e) {
                 ApplicationManager.getApplication().invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        Messages.showErrorDialog(e.getLocalizedMessage(), "IntelliVault Error!");
+                        //Messages.showErrorDialog(e.getLocalizedMessage(), "IntelliVault Error!");
+                        log.error(e.getLocalizedMessage(), "IntelliVault Error!");
                     }
                 });
 

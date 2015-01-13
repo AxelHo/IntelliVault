@@ -110,7 +110,7 @@ public class IntelliVaultServiceImpl implements IntelliVaultService {
                     } catch (IntelliVaultException e) {
                         // TODO work on this
                         log.error("Error copying contents.", e);
-                        Messages.showErrorDialog(e.getLocalizedMessage(), "IntelliVault Error!");
+                        //Messages.showErrorDialog(e.getLocalizedMessage(), "IntelliVault Error!");
                     }
                 }
             }, ModalityState.any());

@@ -7,6 +7,7 @@ import com.crownpartners.intellivault.services.IntelliVaultService;
 import com.intellij.execution.filters.TextConsoleBuilderFactory;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
@@ -46,7 +47,7 @@ public class IntelliVaultImportAction extends IntelliVaultAbstractAction {
         private IntelliVaultOperationConfig conf;
         private IntelliVaultCRXRepository repository;
         private ConsoleView console;
-
+        private final Logger log = Logger.getInstance(IntelliVaultExportAction.class);
         /**
          * Construct the Instance to be executed.
          *
@@ -96,16 +97,18 @@ public class IntelliVaultImportAction extends IntelliVaultAbstractAction {
                 ApplicationManager.getApplication().invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        Messages.showInfoMessage(String.format("Successfully Imported to %s.",
+            /*            Messages.showInfoMessage(String.format("Successfully Imported to %s.",
                                 new Object[]{repository.getRepoUrl() + vaultOpDir.getJcrPath()}),
-                                "IntelliVault Import Completed Successfully!");
+                                "IntelliVault Import Completed Successfully!");*/
+                        log.info("IntelliVault Import Completed Successfully!");
                     }
                 });
             } catch (final IntelliVaultException e) {
                 ApplicationManager.getApplication().invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        Messages.showErrorDialog(e.getLocalizedMessage(), "IntelliVault Error!");
+                       /* Messages.showErrorDialog(e.getLocalizedMessage(), "IntelliVault Error!");*/
+                        log.error("IntelliVault Error!",e);
                     }
                 });
 
